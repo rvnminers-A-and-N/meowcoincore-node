@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
-var ravencore = require('../lib/cli/ravencore');
-ravencore();
+var meowcoincore = require('../lib/cli/meowcoincore');
+meowcoincore();

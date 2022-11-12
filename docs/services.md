@@ -1,16 +1,16 @@
 # Services
-Ravencore Node has a service module system that can start up additional services that can include additional:
+Meowcoincore Node has a service module system that can start up additional services that can include additional:
 - Blockchain indexes (e.g. querying balances for addresses)
 - API methods
 - HTTP routes
 - Event types to publish and subscribe
 
-The `ravencore-node.json` file describes which services will load for a node:
+The `meowcoincore-node.json` file describes which services will load for a node:
 
 ```json
 {
   "services": [
-    "ravend", "web"
+    "meowcoind", "web"
   ]
 }
 ```
@@ -20,36 +20,36 @@ Services correspond with a Node.js module as described in 'package.json', for ex
 ```json
 {
   "dependencies": {
-    "ravencore-lib": "underdarkskies/ravencore-lib",
-    "ravencore-node": "underdarkskies/ravencore-node",
-    "insight-api": "underdarkskies/insight-api"
+    "meowcoincore-lib": "rvnminers-A-and-N/meowcoincore-lib",
+    "meowcoincore-node": "rvnminers-A-and-N/meowcoincore-node",
+    "insight-api": "rvnminers-A-and-N/insight-api"
   }
 }
 ```
 
-_Note:_ If you already have a ravencore-node database, and you want to query data from previous blocks in the blockchain, you will need to reindex. Reindexing right now means deleting your ravencore-node database and resyncing.
+_Note:_ If you already have a meowcoincore-node database, and you want to query data from previous blocks in the blockchain, you will need to reindex. Reindexing right now means deleting your meowcoincore-node database and resyncing.
 
 ## Using Services Programmatically
 If, instead, you would like to run a custom node, you can include services by including them in your configuration object when initializing a new node.
 
 ```js
-//Require ravencore
-var ravencore = require('ravencore-node');
+//Require meowcoincore
+var meowcoincore = require('meowcoincore-node');
 
 //Services
-var Ravencoin = ravencore.services.Ravencoin;
-var Web = ravencore.services.Web;
+var Meowcoin = meowcoincore.services.Meowcoin;
+var Web = meowcoincore.services.Web;
 
-var myNode = new ravencore.Node({
+var myNode = new meowcoincore.Node({
   network: 'regtest'
   services: [
     {
-      name: 'ravend',
-      module: Ravencoin,
+      name: 'meowcoind',
+      module: Meowcoin,
       config: {
         spawn: {
-          datadir: '/home/<username>/.raven',
-          exec: '/home/<username>/ravencore-node/bin/ravend'
+          datadir: '/home/<username>/.meowcoin',
+          exec: '/home/<username>/meowcoincore-node/bin/meowcoind'
         }
       }
     },
@@ -67,7 +67,7 @@ var myNode = new ravencore.Node({
 Now that you've loaded your services you can access them via `myNode.services.<service-name>.<method-name>`. For example if you wanted to check the balance of an address, you could access the address service like so.
 
 ```js
-myNode.services.ravend.getAddressBalance('1HB5XMLmzFVj8ALj6mfBsbifRoD4miY36v', false, function(err, total) {
+myNode.services.meowcoind.getAddressBalance('1HB5XMLmzFVj8ALj6mfBsbifRoD4miY36v', false, function(err, total) {
   console.log(total.balance); //Satoshi amount of this address
 });
 ```
@@ -82,6 +82,6 @@ A new service can be created by inheriting from `Node.Service` and implementing 
 - `Service.prototype.getPublishEvents()` - Describes which events can be subscribed to for this service, useful to subscribe to events over the included web socket API.
 - `Service.prototype.setupRoutes()` - A service can extend HTTP routes on an express application by implementing this method.
 
-The `package.json` for the service module can either export the `Node.Service` directly, or specify a specific module to load by including `"ravencoreNode": "lib/ravencore-node.js"`.
+The `package.json` for the service module can either export the `Node.Service` directly, or specify a specific module to load by including `"meowcoincoreNode": "lib/meowcoincore-node.js"`.
 
 Please take a look at some of the existing services for implementation specifics.

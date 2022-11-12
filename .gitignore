@@ -22,8 +22,8 @@ coverage/*
 **/*.creator
 *.log
 .DS_Store
-bin/raven-*
-bin/ravend
+bin/meowcoin-*
+bin/meowcoind
 bin/SHA256SUMS.asc
 regtest/data/node1/regtest
 regtest/data/node2/regtest

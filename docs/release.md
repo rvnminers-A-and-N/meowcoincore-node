@@ -1,10 +1,10 @@
 # Release Process
 
-Binaries for ravend are distributed for convenience and built deterministically with Gitian, signatures for ravend are located at the [gitian.sigs](https://github.com/underdarkskies/gitian.sigs) respository.
+Binaries for meowcoind are distributed for convenience and built deterministically with Gitian, signatures for meowcoind are located at the [gitian.sigs](https://github.com/rvnminers-A-and-N/gitian.sigs) respository.
 
 ## How to Release
 
-When publishing to npm, the .gitignore file is used to exclude files from the npm publishing process. Be sure that the ravencore-node directory has only the directories and files that you would like to publish to npm. You might need to run the commands below on each platform that you intend to publish (e.g. Mac and Linux).
+When publishing to npm, the .gitignore file is used to exclude files from the npm publishing process. Be sure that the meowcoincore-node directory has only the directories and files that you would like to publish to npm. You might need to run the commands below on each platform that you intend to publish (e.g. Mac and Linux).
 
 To make a release, bump the `version` of the `package.json`:
 
@@ -20,7 +20,7 @@ git push upstream master
 npm publish
 ```
 
-Create a release tag and push it to the Underdarkskies Github repo:
+Create a release tag and push it to the rvnminers-A-and-N Github repo:
 
 ```bash
 git tag -s v<version> -m 'v<version>'
