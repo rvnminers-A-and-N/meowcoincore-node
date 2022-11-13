@@ -12,10 +12,10 @@ describe('#defaultBaseConfig', function() {
     info.path.should.equal(cwd);
     info.config.network.should.equal('livenet');
     info.config.port.should.equal(3001);
-    info.config.services.should.deep.equal(['ravend', 'web']);
-    var ravend = info.config.servicesConfig.ravend;
-    ravend.spawn.datadir.should.equal(home + '/.raven');
-    ravend.spawn.exec.should.equal(path.resolve(__dirname, '../../bin/ravend'));
+    info.config.services.should.deep.equal(['meowcoind', 'web']);
+    var meowcoind = info.config.servicesConfig.meowcoind;
+    meowcoind.spawn.datadir.should.equal(home + '/.meowcoin');
+    meowcoind.spawn.exec.should.equal(path.resolve(__dirname, '../../bin/meowcoind'));
   });
   it('be able to specify a network', function() {
     var info = defaultBaseConfig({network: 'testnet'});
@@ -23,6 +23,6 @@ describe('#defaultBaseConfig', function() {
   });
   it('be able to specify a datadir', function() {
     var info = defaultBaseConfig({datadir: './data2', network: 'testnet'});
-    info.config.servicesConfig.ravend.spawn.datadir.should.equal('./data2');
+    info.config.servicesConfig.meowcoind.spawn.datadir.should.equal('./data2');
   });
 });

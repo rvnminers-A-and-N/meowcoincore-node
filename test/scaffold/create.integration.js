@@ -33,7 +33,7 @@ describe('#create', function() {
       if (err) {
         throw err;
       }
-      mkdirp(testDir + '/.raven', function(err) {
+      mkdirp(testDir + '/.meowcoin', function(err) {
         if (err) {
           throw err;
         }
@@ -64,15 +64,15 @@ describe('#create', function() {
         throw err;
       }
 
-      var configPath = testDir + '/mynode/ravencore-node.json';
+      var configPath = testDir + '/mynode/meowcoincore-node.json';
       var packagePath = testDir + '/mynode/package.json';
 
       should.equal(fs.existsSync(configPath), true);
       should.equal(fs.existsSync(packagePath), true);
 
       var config = JSON.parse(fs.readFileSync(configPath));
-      config.services.should.deep.equal(['ravend', 'web']);
-      config.servicesConfig.ravend.spawn.datadir.should.equal('./data');
+      config.services.should.deep.equal(['meowcoind', 'web']);
+      config.servicesConfig.meowcoind.spawn.datadir.should.equal('./data');
       config.network.should.equal('livenet');
 
       var pack = JSON.parse(fs.readFileSync(packagePath));
@@ -104,7 +104,7 @@ describe('#create', function() {
       dirname: 'mynode3',
       name: 'My Node 3',
       isGlobal: true,
-      datadir: '../.raven'
+      datadir: '../.meowcoin'
     }, function(err) {
       if (err) {
         throw err;
@@ -139,7 +139,7 @@ describe('#create', function() {
       dirname: 'mynode4',
       name: 'My Node 4',
       isGlobal: false,
-      datadir: '../.raven'
+      datadir: '../.meowcoin'
     }, function(err) {
       should.exist(err);
       err.message.should.equal('There was an error installing dependencies.');

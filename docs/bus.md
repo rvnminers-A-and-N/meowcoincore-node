@@ -1,5 +1,5 @@
 # Bus
-The bus provides a way to subscribe to events from any of the services running. It's implemented abstract from transport specific implementation. The primary use of the bus in Ravencore Node is for subscribing to events via a web socket.
+The bus provides a way to subscribe to events from any of the services running. It's implemented abstract from transport specific implementation. The primary use of the bus in Meowcoincore Node is for subscribing to events via a web socket.
 
 ## Opening/Closing
 
@@ -20,11 +20,11 @@ bus.close();
 ```javascript
 
 // subscribe to all transaction events
-bus.subscribe('ravend/rawtransaction');
+bus.subscribe('meowcoind/rawtransaction');
 
 // to subscribe to new block hashes
-bus.subscribe('ravend/hashblock');
+bus.subscribe('meowcoind/hashblock');
 
 // unsubscribe
-bus.unsubscribe('ravend/rawtransaction');
+bus.unsubscribe('meowcoind/rawtransaction');
 ```

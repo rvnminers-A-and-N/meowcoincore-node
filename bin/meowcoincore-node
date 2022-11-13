@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+var meowcoincore = require('../lib/cli/meowcoincore');
+meowcoincore();

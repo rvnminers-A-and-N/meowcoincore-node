@@ -9,17 +9,17 @@ var log = index.log;
 log.debug = function() {};
 
 var chai = require('chai');
-var ravencore = require('ravencore-lib');
+var meowcoincore = require('meowcoincore-lib');
 var rimraf = require('rimraf');
 var node;
 
 var should = chai.should();
 
-var RavencoinRPC = require('ravend-rpc');
+var MeowcoinRPC = require('meowcoind-rpc');
 var index = require('..');
-var Transaction = ravencore.Transaction;
-var RavencoreNode = index.Node;
-var RavencoinService = index.services.Ravencoin;
+var Transaction = meowcoincore.Transaction;
+var MeowcoincoreNode = index.Node;
+var MeowcoinService = index.services.Meowcoin;
 var testWIF = 'cSdkPxkAjA4HDr5VHgsebAPDEh9Gyub4HK8UJr2DFGGqKKy4K5sG';
 var testKey;
 var client;
@@ -36,7 +36,7 @@ describe('Node Functionality', function() {
 
     var datadir = __dirname + '/data';
 
-    testKey = ravencore.PrivateKey(testWIF);
+    testKey = meowcoincore.PrivateKey(testWIF);
 
     rimraf(datadir + '/regtest', function(err) {
 
@@ -48,21 +48,21 @@ describe('Node Functionality', function() {
         network: 'regtest',
         services: [
           {
-            name: 'ravend',
-            module: RavencoinService,
+            name: 'meowcoind',
+            module: MeowcoinService,
             config: {
               spawn: {
                 datadir: datadir,
-                exec: path.resolve(__dirname, '../bin/ravend')
+                exec: path.resolve(__dirname, '../bin/meowcoind')
               }
             }
           }
         ]
       };
 
-      node = new RavencoreNode(configuration);
+      node = new MeowcoincoreNode(configuration);
 
-      regtest = ravencore.Networks.get('regtest');
+      regtest = meowcoincore.Networks.get('regtest');
       should.exist(regtest);
 
       node.on('error', function(err) {
@@ -74,23 +74,23 @@ describe('Node Functionality', function() {
           return done(err);
         }
 
-        client = new RavencoinRPC({
+        client = new MeowcoinRPC({
           protocol: 'http',
           host: '127.0.0.1',
           port: 30331,
-          user: 'ravencoin',
+          user: 'meowcoin',
           pass: 'local321',
           rejectUnauthorized: false
         });
 
         var syncedHandler = function() {
-          if (node.services.ravend.height === 150) {
-            node.services.ravend.removeListener('synced', syncedHandler);
+          if (node.services.meowcoind.height === 150) {
+            node.services.meowcoind.removeListener('synced', syncedHandler);
             done();
           }
         };
 
-        node.services.ravend.on('synced', syncedHandler);
+        node.services.meowcoind.on('synced', syncedHandler);
 
         client.generate(150, function(err) {
           if (err) {
@@ -119,9 +119,9 @@ describe('Node Functionality', function() {
       var bus = node.openBus();
       var blockExpected;
       var blockReceived;
-      bus.subscribe('ravend/hashblock');
-      bus.on('ravend/hashblock', function(data) {
-        bus.unsubscribe('ravend/hashblock');
+      bus.subscribe('meowcoind/hashblock');
+      bus.on('meowcoind/hashblock', function(data) {
+        bus.unsubscribe('meowcoind/hashblock');
         if (blockExpected) {
           data.should.be.equal(blockExpected);
           done();
@@ -149,8 +149,8 @@ describe('Node Functionality', function() {
     before(function(done) {
       this.timeout(10000);
       address = testKey.toAddress(regtest).toString();
-      var startHeight = node.services.ravend.height;
-      node.services.ravend.on('tip', function(height) {
+      var startHeight = node.services.meowcoind.height;
+      node.services.meowcoind.on('tip', function(height) {
         if (height === startHeight + 3) {
           done();
         }
@@ -248,26 +248,26 @@ describe('Node Functionality', function() {
         /* jshint maxstatements: 50 */
 
         // Finished once all blocks have been mined
-        var startHeight = node.services.ravend.height;
-        node.services.ravend.on('tip', function(height) {
+        var startHeight = node.services.meowcoind.height;
+        node.services.meowcoind.on('tip', function(height) {
           if (height === startHeight + 5) {
             done();
           }
         });
 
-        testKey2 = ravencore.PrivateKey.fromWIF('cNfF4jXiLHQnFRsxaJyr2YSGcmtNYvxQYSakNhuDGxpkSzAwn95x');
+        testKey2 = meowcoincore.PrivateKey.fromWIF('cNfF4jXiLHQnFRsxaJyr2YSGcmtNYvxQYSakNhuDGxpkSzAwn95x');
         address2 = testKey2.toAddress(regtest).toString();
 
-        testKey3 = ravencore.PrivateKey.fromWIF('cVTYQbaFNetiZcvxzXcVMin89uMLC43pEBMy2etgZHbPPxH5obYt');
+        testKey3 = meowcoincore.PrivateKey.fromWIF('cVTYQbaFNetiZcvxzXcVMin89uMLC43pEBMy2etgZHbPPxH5obYt');
         address3 = testKey3.toAddress(regtest).toString();
 
-        testKey4 = ravencore.PrivateKey.fromWIF('cPNQmfE31H2oCUFqaHpfSqjDibkt7XoT2vydLJLDHNTvcddCesGw');
+        testKey4 = meowcoincore.PrivateKey.fromWIF('cPNQmfE31H2oCUFqaHpfSqjDibkt7XoT2vydLJLDHNTvcddCesGw');
         address4 = testKey4.toAddress(regtest).toString();
 
-        testKey5 = ravencore.PrivateKey.fromWIF('cVrzm9gCmnzwEVMGeCxY6xLVPdG3XWW97kwkFH3H3v722nb99QBF');
+        testKey5 = meowcoincore.PrivateKey.fromWIF('cVrzm9gCmnzwEVMGeCxY6xLVPdG3XWW97kwkFH3H3v722nb99QBF');
         address5 = testKey5.toAddress(regtest).toString();
 
-        testKey6 = ravencore.PrivateKey.fromWIF('cPfMesNR2gsQEK69a6xe7qE44CZEZavgMUak5hQ74XDgsRmmGBYF');
+        testKey6 = meowcoincore.PrivateKey.fromWIF('cPfMesNR2gsQEK69a6xe7qE44CZEZavgMUak5hQ74XDgsRmmGBYF');
         address6 = testKey6.toAddress(regtest).toString();
 
         var tx = new Transaction();
@@ -660,14 +660,14 @@ describe('Node Functionality', function() {
       });
 
       it('will update the mempool index after new tx', function(done) {
-        var memAddress = ravencore.PrivateKey().toAddress(node.network).toString();
+        var memAddress = meowcoincore.PrivateKey().toAddress(node.network).toString();
         var tx = new Transaction();
         tx.from(unspentOutput);
         tx.to(memAddress, unspentOutput.satoshis - 1000);
         tx.fee(1000);
         tx.sign(testKey);
 
-        node.services.ravend.sendTransaction(tx.serialize(), function(err, hash) {
+        node.services.meowcoind.sendTransaction(tx.serialize(), function(err, hash) {
           node.getAddressTxids(memAddress, {}, function(err, txids) {
             if (err) {
               return done(err);

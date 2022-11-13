@@ -10,22 +10,22 @@ nvm install v4
 
 ## Fork and Download Repositories
 
-To develop ravencore-node:
+To develop meowcoincore-node:
 
 ```bash
 cd ~
-git clone git@github.com:<yourusername>/ravencore-node.git
-git clone git@github.com:<yourusername>/ravencore-lib.git
+git clone git@github.com:<yourusername>/meowcoincore-node.git
+git clone git@github.com:<yourusername>/meowcoincore-lib.git
 ```
 
-To develop ravencoin or to compile from source:
+To develop meowcoin or to compile from source:
 
 ```bash
-git clone git@github.com:<yourusername>/ravencoin.git
+git clone git@github.com:<yourusername>/meowcoin.git
 git fetch origin <branchname>:<branchname>
 git checkout <branchname>
 ```
-**Note**: See ravencoin documentation for building ravencoin on your platform.
+**Note**: See meowcoin documentation for building meowcoin on your platform.
 
 
 ## Install Development Dependencies
@@ -46,27 +46,27 @@ brew install zeromq
 ## Install and Symlink
 
 ```bash
-cd ravencore-lib
+cd meowcoincore-lib
 npm install
-cd ../ravencore-node
+cd ../meowcoincore-node
 npm install
 ```
-**Note**: If you get a message about not being able to download ravencoin distribution, you'll need to compile ravend from source, and setup your configuration to use that version.
+**Note**: If you get a message about not being able to download meowcoin distribution, you'll need to compile meowcoind from source, and setup your configuration to use that version.
 
 
-We now will setup symlinks in `ravencore-node` *(repeat this for any other modules you're planning on developing)*:
+We now will setup symlinks in `meowcoincore-node` *(repeat this for any other modules you're planning on developing)*:
 ```bash
 cd node_modules
-rm -rf ravencore-lib
-ln -s ~/ravencore-lib
-rm -rf ravend-rpc
-ln -s ~/ravend-rpc
+rm -rf meowcoincore-lib
+ln -s ~/meowcoincore-lib
+rm -rf meowcoind-rpc
+ln -s ~/meowcoind-rpc
 ```
 
-And if you're compiling or developing ravencoin:
+And if you're compiling or developing meowcoin:
 ```bash
 cd ../bin
-ln -sf ~/ravencoin/src/ravend
+ln -sf ~/meowcoin/src/meowcoind
 ```
 
 ## Run Tests
@@ -78,19 +78,19 @@ npm install mocha -g
 
 To run all test suites:
 ```bash
-cd ravencore-node
+cd meowcoincore-node
 npm run regtest
 npm run test
 ```
 
 To run a specific unit test in watch mode:
 ```bash
-mocha -w -R spec test/services/ravend.unit.js
+mocha -w -R spec test/services/meowcoind.unit.js
 ```
 
 To run a specific regtest:
 ```bash
-mocha -R spec regtest/ravend.js
+mocha -R spec regtest/meowcoind.js
 ```
 
 ## Running a Development Node
@@ -102,46 +102,46 @@ cd ~
 mkdir devnode
 cd devnode
 mkdir node_modules
-touch ravencore-node.json
+touch meowcoincore-node.json
 touch package.json
 ```
 
-Edit `ravencore-node.json` with something similar to:
+Edit `meowcoincore-node.json` with something similar to:
 ```json
 {
   "network": "livenet",
   "port": 3001,
   "services": [
-    "ravend",
+    "meowcoind",
     "web",
     "insight-api",
     "insight-ui",
     "<additional_service>"
   ],
   "servicesConfig": {
-    "ravend": {
+    "meowcoind": {
       "spawn": {
-        "datadir": "/home/<youruser>/.ravend",
-        "exec": "/home/<youruser>/ravencoin/src/ravend"
+        "datadir": "/home/<youruser>/.meowcoind",
+        "exec": "/home/<youruser>/meowcoin/src/meowcoind"
       }
     }
   }
 }
 ```
 
-**Note**: To install services [insight-api](https://github.com/underdarkskies/insight-api) and [insight-ui](https://github.com/underdarkskies/insight-ui) you'll need to clone the repositories locally.
+**Note**: To install services [insight-api](https://github.com/rvnminers-A-and-N/insight-api) and [insight-ui](https://github.com/rvnminers-A-and-N/insight-ui) you'll need to clone the repositories locally.
 
 Setup symlinks for all of the services and dependencies:
 
 ```bash
 cd node_modules
-ln -s ~/ravencore-lib
-ln -s ~/ravencore-node
+ln -s ~/meowcoincore-lib
+ln -s ~/meowcoincore-node
 ln -s ~/insight-api
 ln -s ~/insight-ui
 ```
 
-Make sure that the `<datadir>/raven.conf` has the necessary settings, for example:
+Make sure that the `<datadir>/meowcoin.conf` has the necessary settings, for example:
 ```
 server=1
 whitelist=127.0.0.1
@@ -152,11 +152,11 @@ spentindex=1
 zmqpubrawtx=tcp://127.0.0.1:28332
 zmqpubhashblock=tcp://127.0.0.1:28332
 rpcallowip=127.0.0.1
-rpcuser=ravencoin
+rpcuser=meowcoin
 rpcpassword=local321
 ```
 
 From within the `devnode` directory with the configuration file, start the node:
 ```bash
-../ravencore-node/bin/ravencore-node start
+../meowcoincore-node/bin/meowcoincore-node start
 ```

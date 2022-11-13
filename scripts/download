@@ -5,31 +5,42 @@ set -e
 root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
 platform=`uname -a | awk '{print tolower($1)}'`
 arch=`uname -m`
-version="2.5.1.0"
-url="https://github.com/RavenProject/Ravencoin/releases/download"
-tag="v2.5.1"
+version="4.4.4.2-1aa3781c5-dirty"
+url="https://github.com/MeowcoinProject/Meowcoin/releases/download"
+tag="V1.0.3"
 
 if [ "${platform}" == "linux" ]; then
     if [ "${arch}" == "x86_64" ]; then
-        tarball_name="raven-${version}-x86_64-linux-gnu.tar.gz"
+        archive_name="MEOW-${version}-CLI-x86_64-linux-gnu.tar.gz"
     elif [ "${arch}" == "x86_32" ]; then
-        tarball_name="raven-${version}-i686-pc-linux-gnu.tar.gz"
+        archive_name="MEOW-${version}-CLI-i686-pc-linux-gnu.tar.gz"
+    elif [[ "${arch}" =~ "arm" ]]; then
+        # e.g. raven-4.1.0.0-arm-linux-gnueabihf.tar.gz
+        archive_name="MEOW-${version}-CLI-arm-linux-gnueabihf.tar.gz"
+    else
+        echo "Meowcoin binary distribution not found for linux architecture: ${arch}"
+        exit -1
     fi
 elif [ "${platform}" == "darwin" ]; then
-    tarball_name="raven-${version}-osx64.tar.gz"
+    archive_name="MEOW-${version}-CLI-OSX.zip"
 else
-    echo "Ravencoin binary distribution not available for platform and architecture"
+    echo "Meowcoin binary distribution not found for platform and architecture (${platform}/${arch})"
     exit -1
 fi
 
-binary_url="${url}/${tag}/${tarball_name}"
-shasums_url="${url}/${tag}/SHA256SUMS.asc"
+binary_url="${url}/${tag}/${archive_name}"
+shasums_url="${url}/${tag}/${archive_name}.SHA256SUMS"
 
-download_ravend() {
+download_meowcoind() {
 
     cd "${root_dir}/bin"
 
-    echo "Downloading ravencoin: ${binary_url}"
+    if test -e "meowcoind"; then
+        echo "\"bin/meowcoind\" already exists -- skipping download."
+        return;
+    fi
+
+    echo "Downloading meowcoin: ${binary_url}"
 
     is_curl=true
     if hash curl 2>/dev/null; then
@@ -41,27 +52,36 @@ download_ravend() {
 
     if test $? -eq 0; then
         if [ "${is_curl}" = true ]; then
-            curl -L $binary_url > $tarball_name
+            curl -L $binary_url > $archive_name
             curl -L $shasums_url > SHA256SUMS.asc
         else
             wget $binary_url
             wget $shasums_url
         fi
-        if test -e "${tarball_name}"; then
-            echo "Unpacking ravencoin distribution"
-            tar -xvzf $tarball_name
-            if test $? -eq 0; then
-                ln -sf "raven-${version}/bin/ravend"
-                return;
+        if test -e "${archive_name}"; then
+            echo "Unpacking meowcoin distribution"
+            if [[ "${platform}" == "linux" ]]; then            
+                tar -xvzf $archive_name
+                if test $? -eq 0; then
+                    ln -sf "MEOW-${version}/bin/meowcoind"
+                    return;
+                fi
+            elif [[ "${platform}" == "darwin" ]]; then
+                hdiutil mount $archive_name
+                if test $? -eq 0; then
+                    cp /Volumes/Meowcoin\ Core/Meowcoin-Qt.app/Contents/MacOS/meowcoind .
+                    hdiutil unmount /Volumes/Meowcoin\ Core
+                    return;
+                fi
             fi
         fi
     fi
-    echo "Ravencoin binary distribution could not be downloaded"
+    echo "Meowcoin binary distribution could not be downloaded"
     exit -1
 }
 
 verify_download() {
-    echo "Verifying signatures of ravencoin download"
+    echo "Verifying signatures of meowcoin download"
     gpg --verify "${root_dir}/bin/SHA256SUMS.asc"
 
     if hash shasum 2>/dev/null; then
@@ -70,8 +90,8 @@ verify_download() {
         shasum_cmd="sha256sum"
     fi
 
-    download_sha=$(${shasum_cmd} "${root_dir}/bin/${tarball_name}" | awk '{print $1}')
-    expected_sha=$(cat "${root_dir}/bin/SHA256SUMS.asc" | grep "${tarball_name}" | awk '{print $1}')
+    download_sha=$(${shasum_cmd} "${root_dir}/bin/${archive_name}" | awk '{print $1}')
+    expected_sha=$(cat "${root_dir}/bin/SHA256SUMS.asc" | grep "${archive_name}" | awk '{print $1}')
     echo "Checksum (download): ${download_sha}"
     echo "Checksum (verified): ${expected_sha}"
     if [ "${download_sha}" != "${expected_sha}" ]; then
@@ -85,11 +105,11 @@ verify_download() {
 download=1
 verify=0
 
-if [ "${SKIP_RAVENCOIN_DOWNLOAD}" = 1 ]; then
+if [ "${SKIP_MEOWCOIN_DOWNLOAD}" = 1 ]; then
     download=0;
 fi
 
-if [ "${VERIFY_RAVENCOIN_DOWNLOAD}" = 1 ]; then
+if [ "${VERIFY_MEOWCOIN_DOWNLOAD}" = 1 ]; then
     verify=1;
 fi
 
@@ -98,10 +118,10 @@ while [ -n "$1" ]; do
   value="$2"
 
   case $param in
-    --skip-ravencoin-download)
+    --skip-meowcoin-download)
           download=0
           ;;
-    --verify-ravencoin-download)
+    --verify-meowcoin-download)
           verify=1
           ;;
   esac
@@ -109,7 +129,7 @@ while [ -n "$1" ]; do
 done
 
 if [ "${download}" = 1 ]; then
-    download_ravend
+    download_meowcoind
 fi
 
 if [ "${verify}" = 1 ]; then

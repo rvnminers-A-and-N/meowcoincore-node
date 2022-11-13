@@ -1,21 +1,22 @@
 {
-  "name": "ravencore-node",
-  "description": "Full node with extended capabilities using ravencore and Ravencoin",
+  "name": "meowcoincore-node",
+  "description": "Full node with extended capabilities using meowcoincore and Meowcoin",
   "author": "Under",
   "version": "1.0.3",
   "main": "./index.js",
-  "repository": "git://github.com/underdarkskies/ravencore-node.git",
-  "homepage": "https://github.com/underdarkskies/ravencore-node",
+  "repository": "git://github.com/rvnminers-A-and-N/meowcoincore-node.git",
+  "homepage": "https://github.com/rvnminers-A-and-N/meowcoincore-node",
   "bugs": {
-    "url": "https://github.com/underdarkskies/ravencore-node/issues"
+    "url": "https://github.com/rvnminers-A-and-N/meowcoincore-node/issues"
   },
   "bin": {
-    "ravencore-node": "./bin/ravencore-node",
-    "ravend": "./bin/ravend"
+    "meowcoincore-node": "./bin/meowcoincore-node",
+    "meowcoind": "./bin/meowcoind"
   },
   "scripts": {
     "preinstall": "./scripts/download",
-    "verify": "./scripts/download --skip-ravencoin-download --verify-ravencoin-download",
+    "download-meowcoind": "./scripts/download",
+    "verify-meowcoind": "./scripts/download --skip-meowcoin-download --verify-meowcoin-download",
     "test": "mocha -R spec --recursive",
     "regtest": "./scripts/regtest",
     "jshint": "jshint --reporter=node_modules/jshint-stylish ./lib",
@@ -23,13 +24,13 @@
     "coveralls": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --recursive -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "tags": [
-    "ravencoin",
-    "ravend"
+    "meowcoin",
+    "meowcoind"
   ],
   "dependencies": {
     "async": "2.6.2",
-    "ravend-rpc": "underdarkskies/ravend-rpc",
-    "ravencore-lib": "underdarkskies/ravencore-lib",
+    "meowcoind-rpc": "rvnminers-A-and-N/meowcoind-rpc",
+    "meowcoincore-lib": "rvnminers-A-and-N/meowcoincore-lib",
     "body-parser": "1.18.3",
     "colors": "1.3.3",
     "commander": "2.20.0",
@@ -49,13 +50,14 @@
     "utf-8-validate": "~4.0.1"
   },
   "devDependencies": {
+    "@sinonjs/samsam": "^2.1.2",
     "benchmark": "1.0.0",
-    "ravencore-p2p": "underdarkskies/ravencore-p2p",
     "chai": "^4.1.2",
     "coveralls": "^3.0.1",
     "istanbul": "^0.4.3",
     "jshint": "^2.9.2",
     "jshint-stylish": "^2.1.0",
+    "meowcoincore-p2p": "rvnminers-A-and-N/meowcoincore-p2p",
     "mocha": "^5.0.5",
     "proxyquire": "^1.3.1",
     "rimraf": "^2.4.2",
