@@ -78,8 +78,8 @@ describe('Node Functionality', function() {
           protocol: 'http',
           host: '127.0.0.1',
           port: 30331,
-          user: 'meowcoin',
-          pass: 'local321',
+          user: 'meowweb',
+          pass: 'MEWC_web01',
           rejectUnauthorized: false
         });
 

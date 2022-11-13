@@ -53,8 +53,8 @@ meowcoind.on('ready', function() {
   var client = new meowcoin.Client({
     host: 'localhost',
     port: 18332,
-    user: 'meowcoin',
-    pass: 'local321'
+    user: 'meowweb',
+    pass: 'MEWC_web01'
   });
 
   async.series([

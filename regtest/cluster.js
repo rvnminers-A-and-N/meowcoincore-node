@@ -24,8 +24,8 @@ describe('Meowcoin Cluster', function() {
     {
       datadir: path.resolve(__dirname, './data/node1'),
       conf: path.resolve(__dirname, './data/node1/meowcoin.conf'),
-      rpcuser: 'meowcoin',
-      rpcpassword: 'local321',
+      rpcuser: 'meowweb',
+      rpcpassword: 'MEWC_web01',
       rpcport: 30521,
       zmqpubrawtx: 'tcp://127.0.0.1:30611',
       zmqpubhashblock: 'tcp://127.0.0.1:30611'
@@ -33,8 +33,8 @@ describe('Meowcoin Cluster', function() {
     {
       datadir: path.resolve(__dirname, './data/node2'),
       conf: path.resolve(__dirname, './data/node2/meowcoin.conf'),
-      rpcuser: 'meowcoin',
-      rpcpassword: 'local321',
+      rpcuser: 'meowweb',
+      rpcpassword: 'MEWC_web01',
       rpcport: 30522,
       zmqpubrawtx: 'tcp://127.0.0.1:30622',
       zmqpubhashblock: 'tcp://127.0.0.1:30622'
@@ -42,8 +42,8 @@ describe('Meowcoin Cluster', function() {
     {
       datadir: path.resolve(__dirname, './data/node3'),
       conf: path.resolve(__dirname, './data/node3/meowcoin.conf'),
-      rpcuser: 'meowcoin',
-      rpcpassword: 'local321',
+      rpcuser: 'meowweb',
+      rpcpassword: 'MEWC_web01',
       rpcport: 30523,
       zmqpubrawtx: 'tcp://127.0.0.1:30633',
       zmqpubhashblock: 'tcp://127.0.0.1:30633'
@@ -109,22 +109,22 @@ describe('Meowcoin Cluster', function() {
               {
                 rpchost: '127.0.0.1',
                 rpcport: 30521,
-                rpcuser: 'meowcoin',
-                rpcpassword: 'local321',
+                rpcuser: 'meowweb',
+                rpcpassword: 'MEWC_web01',
                 zmqpubrawtx: 'tcp://127.0.0.1:30611'
               },
               {
                 rpchost: '127.0.0.1',
                 rpcport: 30522,
-                rpcuser: 'meowcoin',
-                rpcpassword: 'local321',
+                rpcuser: 'meowweb',
+                rpcpassword: 'MEWC_web01',
                 zmqpubrawtx: 'tcp://127.0.0.1:30622'
               },
               {
                 rpchost: '127.0.0.1',
                 rpcport: 30523,
-                rpcuser: 'meowcoin',
-                rpcpassword: 'local321',
+                rpcuser: 'meowweb',
+                rpcpassword: 'MEWC_web01',
                 zmqpubrawtx: 'tcp://127.0.0.1:30633'
               }
             ]
