@@ -386,8 +386,8 @@ describe('Meowcoin Service', function() {
         port: 20000,
         rpcport: 50001,
         rpcallowip: '127.0.0.1',
-        rpcuser: 'meowcoin',
-        rpcpassword: 'local321',
+        rpcuser: 'meowweb',
+        rpcpassword: 'MEWC_web01',
         server: 1,
         spentindex: 1,
         timestampindex: 1,
@@ -834,7 +834,7 @@ describe('Meowcoin Service', function() {
         }
       };
       var meowcoind = new MeowcoinService(config);
-      meowcoind._getNetworkConfigPath().should.equal('testnet3/meowcoin.conf');
+      meowcoind._getNetworkConfigPath().should.equal('testnet7/meowcoin.conf');
     });
     it('will get default rpc port for regtest', function() {
       meowcoincore.Networks.enableRegtest();
@@ -4999,8 +4999,8 @@ describe('Meowcoin Service', function() {
         should.equal(info.relayFee, 10);
         should.equal(info.errors, '');
         info.network.should.equal('testnet');
-        should.equal(info.subversion, '/Satoshi:0.15.99/'); 
-		should.equal(info.localServices, '000000000000000d'); 
+        should.equal(info.subversion, '/Satoshi:0.15.99/');
+		should.equal(info.localServices, '000000000000000d');
 		done();
       });
     });
