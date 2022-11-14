@@ -28,6 +28,7 @@
     "meowcoind"
   ],
   "dependencies": {
+    "@ravendevkit/node-x16r": "^1.0.2",
     "async": "2.6.2",
     "meowcoind-rpc": "git+https://github.com/rvnminers-A-and-N/meowcoind-rpc.git",
     "meowcoincore-lib": "git+https://github.com/rvnminers-A-and-N/meowcoincore-lib.git",
