@@ -7,7 +7,7 @@ echo "${root_dir}"
 platform=`uname -a | awk '{print tolower($1)}'`
 arch=`uname -m`
 version="1.0.3"
-url="https://github.com/MeowcoinProject/Meowcoin/releases/download"
+url="https://github.com/JustAResearcher/Meowcoin/releases/download"
 tag="V1.0.3"
 
 if [ "${platform}" == "linux" ]; then
