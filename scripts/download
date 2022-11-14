@@ -2,7 +2,8 @@
 
 set -e
 
-root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd ../ && pwd)/.."
+root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd ../ && pwd)/"
+echo "${root_dir}"
 platform=`uname -a | awk '{print tolower($1)}'`
 arch=`uname -m`
 version="1.0.3"
