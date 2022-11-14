@@ -2,10 +2,10 @@
 
 set -e
 
-root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
+root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd ../ && pwd)/.."
 platform=`uname -a | awk '{print tolower($1)}'`
 arch=`uname -m`
-version="4.4.4.2-1aa3781c5-dirty"
+version="1.0.3"
 url="https://github.com/MeowcoinProject/Meowcoin/releases/download"
 tag="V1.0.3"
 
@@ -35,7 +35,7 @@ download_meowcoind() {
 
     cd "${root_dir}/bin"
 
-    if test -e "meowcoind"; then
+    if test -e "/home/mewcexplorer/meowcoincore-node/bin/meowcoind"; then
         echo "\"bin/meowcoind\" already exists -- skipping download."
         return;
     fi
@@ -63,7 +63,8 @@ download_meowcoind() {
             if [[ "${platform}" == "linux" ]]; then            
                 tar -xvzf $archive_name
                 if test $? -eq 0; then
-                    ln -sf "MEOW-${version}/bin/meowcoind"
+                    echo "Linking meowcoind"
+                    ln -sf "/home/mewcexplorer/meowcoincore-node/bin/meowcoind"
                     return;
                 fi
             elif [[ "${platform}" == "darwin" ]]; then
